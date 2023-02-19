@@ -11,7 +11,7 @@ const RightContent = (props: Props) => {
 	return (
 		<>
 			<AuthModal />
-			<Flex justify="center" alignItems="center" />
+			{/* <Flex justify="center" alignItems="center" /> */}
 			<AuthButtons />
 		</>
 	);

@@ -26,7 +26,7 @@ const AuthButtons = () => {
 				mr={2}
 				onClick={() => setAuthModalState({open:true, view:"signup"})}
 			>
-				Sign in
+				Sign Up
 			</Button>
 		</>
 	);
