@@ -4,16 +4,17 @@ import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 const Signup = () => {
-	const [loginForm, setLoginForm] = useState({
+	const [signupForm, setSignupForm] = useState({
 		email: "",
 		password: "",
+        confirmPassword:""
 	});
 
 	const setAuthModalState = useSetRecoilState(authModalState);
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// update the form state
-		setLoginForm((prev) => ({
+		setSignupForm((prev) => ({
 			...prev,
 			[e.target.name]: e.target.value,
 		}));
@@ -22,7 +23,7 @@ const Signup = () => {
 	// firebase logic
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log("LOG IN FORM", loginForm);
+		console.log("LOG IN FORM", signupForm);
 		setAuthModalState((prev) => ({
 			...prev,
 			open: false,
@@ -75,12 +76,33 @@ const Signup = () => {
 				}}
 				bg="gray.50"
 			/>
-
+			<Input
+				required
+				name="confirmPassword"
+				placeholder="Confirm Password"
+				type="password"
+				mb={2}
+				onChange={onChange}
+				fontSize="10pt"
+				_placeholder={{ color: "gray.500" }}
+				_hover={{
+					bg: "white",
+					border: "1px solid",
+					borderColor: "blue.500",
+				}}
+				_focus={{
+					outline: "none",
+					bg: "white",
+					border: "1px solid",
+					borderColor: "blue.500",
+				}}
+				bg="gray.50"
+			/>
 			<Button type="submit" width="100%" my={2}>
 				Log in
 			</Button>
 			<Flex fontSize="9pt" justifyContent="center">
-				<Text mr={1}>Have an account ?</Text>
+				<Text mr={1}>Already a redditor?</Text>
 				<Text
 					color="blue.500"
 					fontWeight={700}
@@ -92,7 +114,7 @@ const Signup = () => {
 						})
 					}
 				>
-					Login
+					LOG IN
 				</Text>
 			</Flex>
 		</form>
