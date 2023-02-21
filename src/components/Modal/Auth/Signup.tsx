@@ -1,4 +1,4 @@
-import { authModalState } from "@/atoms/authModalAtom";
+import { authModalStateAtom } from "@/atoms/authModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -10,7 +10,7 @@ const Signup = () => {
         confirmPassword:""
 	});
 
-	const setAuthModalState = useSetRecoilState(authModalState);
+	const setAuthModalState = useSetRecoilState(authModalStateAtom);
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// update the form state

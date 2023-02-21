@@ -1,5 +1,5 @@
-import { authModalState } from "@/atoms/authModalAtom";
-import { auth } from "@/firebase/clientApp";
+import { authModalStateAtom } from "@/atoms/authModalAtom";
+import { auth } from  "../../../firebase/config";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -12,6 +12,7 @@ const Login = () => {
 		password: "",
 	});
 
+
 	const [
             signInWithEmailAndPassword, 
             user, 
@@ -19,7 +20,7 @@ const Login = () => {
             error
         ] = useSignInWithEmailAndPassword(auth);
 
-	const setAuthModalState = useSetRecoilState(authModalState);
+	const setAuthModalState = useSetRecoilState(authModalStateAtom);
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// update the form state

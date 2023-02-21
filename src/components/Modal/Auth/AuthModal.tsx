@@ -1,4 +1,4 @@
-import { authModalState } from "@/atoms/authModalAtom";
+import { authModalStateAtom } from "@/atoms/authModalAtom";
 import {
 	Flex,
 	Modal,
@@ -14,7 +14,7 @@ import AuthInputs from "./AuthInputs";
 import OauthButtons from "./OauthButtons";
 
 const AuthModal = () => {
-	const [modalState, setModalState] = useRecoilState(authModalState);
+	const [modalState, setModalState] = useRecoilState(authModalStateAtom);
 	const { open, view } = modalState;
 	const handleClose = () => {
 		setModalState((prev) => ({
