@@ -2,6 +2,9 @@ import { authModalStateAtom } from "@/atoms/authModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/config";
+import { FIREBASE_ERRORS } from "@/firebase/errors";
 
 const Signup = () => {
 	const [signupForm, setSignupForm] = useState({
@@ -9,9 +12,9 @@ const Signup = () => {
 		password: "",
         confirmPassword:""
 	});
-
+	const [ error, setError ] = useState("")
 	const setAuthModalState = useSetRecoilState(authModalStateAtom);
-
+	const [ createUserWithEmailAndPassword, user, loading, createUserError ] = useCreateUserWithEmailAndPassword(auth)
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// update the form state
 		setSignupForm((prev) => ({
@@ -20,14 +23,18 @@ const Signup = () => {
 		}));
 	};
 
-	// firebase logic
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		console.log("LOG IN FORM", signupForm);
-		setAuthModalState((prev) => ({
-			...prev,
-			open: false,
-		}));
+		e.preventDefault()
+		if(error) setError("")
+		const { password, confirmPassword } = signupForm
+		if(password !== confirmPassword){
+			setError("Passwords do not match")
+			return
+		}
+		createUserWithEmailAndPassword(
+			signupForm.email,
+			signupForm.password
+		)
 	};
 
 	return (
@@ -98,8 +105,15 @@ const Signup = () => {
 				}}
 				bg="gray.50"
 			/>
-			<Button type="submit" width="100%" my={2}>
-				Log in
+
+			{(error || createUserError) && ( 
+				<Text textAlign="center" color="red" fontSize="10pt">
+					{error || FIREBASE_ERRORS[createUserError?.message as keyof typeof FIREBASE_ERRORS]}
+				</Text>
+			)}
+
+			<Button type="submit" width="100%" my={2} isLoading={loading}>
+				Sign Up
 			</Button>
 			<Flex fontSize="9pt" justifyContent="center">
 				<Text mr={1}>Already a redditor?</Text>
