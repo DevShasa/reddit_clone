@@ -30,10 +30,7 @@ const AuthModal = () => {
 	};
 
 	useEffect(() => {
-		if (user) {
-			console.log("USER FROM FIREBASE", user);
-			handleClose();
-		}
+		if (user)handleClose();
 	}, [user]);
 
 	return (

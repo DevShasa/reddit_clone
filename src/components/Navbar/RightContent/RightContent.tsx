@@ -11,7 +11,6 @@ type Props = {
 
 const RightContent = ({user}: Props) => {
 
-
 	return (
 		<>
 			<AuthModal />
