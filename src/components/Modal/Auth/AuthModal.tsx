@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import ResetPassword from "./ResetPassword";
 
 const AuthModal = () => {
-	const [user, loading, error] = useAuthState(auth);
+	const [user] = useAuthState(auth);
 	const [modalState, setModalState] = useRecoilState(authModalStateAtom);
 	const { open, view } = modalState;
 
