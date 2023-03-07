@@ -29,7 +29,7 @@ const ResetPassword = (props: Props) => {
         <Flex direction="column" alignItems="center" width="100%">
             <Icon as={BsReddit} color="brand.100" fontSize={40} mb={2}/>
             <Text fontWeight={700} mb={2}>
-                Reset Your Password
+                Reset Password
             </Text>
             {
                 success 
