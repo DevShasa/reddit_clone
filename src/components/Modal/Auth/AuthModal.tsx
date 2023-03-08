@@ -30,6 +30,7 @@ const AuthModal = () => {
 	};
 
 	useEffect(() => {
+		// if user is not null a user has logged in, close the modal
 		if (user)handleClose();
 	}, [user]);
 
