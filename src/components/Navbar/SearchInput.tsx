@@ -23,7 +23,7 @@ const SearchInput = ({}: SearchInputProps) => {
                     }}
                     _focus={{
                         outline:"none",
-                        border:"1px solid",
+                        border:"1px solid red",
                         borderColor:"blue.500"
                     }}
                     height="34px"

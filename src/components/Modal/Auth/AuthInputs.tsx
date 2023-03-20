@@ -11,7 +11,6 @@ const AuthInputs = (props: Props) => {
 
     const {view} = useRecoilValue(authModalStateAtom)
     
-
 	return(
         <Flex direction="column" align="center" width="100%" mt={4}>
             {view === "login" && <Login />}
