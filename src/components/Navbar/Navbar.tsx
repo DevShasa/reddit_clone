@@ -4,6 +4,7 @@ import RightContent from './RightContent/RightContent'
 import SearchInput from './SearchInput'
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
+import Directory from './Directory/Directory';
 
 const Navbar = () => {
     const [user, loading, error] = useAuthState(auth)
@@ -14,7 +15,7 @@ const Navbar = () => {
                 <Image src="/images/redditFace.svg" alt="reddit" height="30px"/>
                 <Image src="/images/redditText.svg" alt="reddit" height="46px" display={{base:'none', md:"unset"}}/>
             </Flex>
-            {/* <Directory /> */}
+            <Directory />
             <SearchInput />
             <RightContent user={user}/>
         </Flex>

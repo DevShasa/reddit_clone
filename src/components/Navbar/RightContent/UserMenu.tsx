@@ -29,6 +29,18 @@ const UserMenu = ({ user }: Props) => {
 	const setAuthModalState = useSetRecoilState(authModalStateAtom)
 
 	return (
+		// <Menu>
+		// 	<MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+		// 		Actions
+		// 	</MenuButton>
+		// 	<MenuList>
+		// 		<MenuItem>Download</MenuItem>
+		// 		<MenuItem>Create a Copy</MenuItem>
+		// 		<MenuItem>Mark as Draft</MenuItem>
+		// 		<MenuItem>Delete</MenuItem>
+		// 		<MenuItem>Attend a Workshop</MenuItem>
+		// 	</MenuList>
+		// </Menu>
 		<Menu>
 			<MenuButton
 				cursor="pointer"
