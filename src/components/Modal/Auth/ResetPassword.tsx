@@ -6,9 +6,8 @@ import { authModalStateAtom } from "@/atoms/authModalAtom";
 import { auth } from "@/firebase/config";
 import { useSetRecoilState } from "recoil";
 
-type Props = {};
 
-const ResetPassword = (props: Props) => {
+const ResetPassword = () => {
 
     const setAuthModalState = useSetRecoilState(authModalStateAtom)
     const [email, setEmail] = useState("")

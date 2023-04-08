@@ -4,6 +4,7 @@ import {
     MenuButton, MenuList, Text
 } from "@chakra-ui/react";
 import { TiHome } from "react-icons/ti"
+import Communities from "./Communities";
 
 
 const Directory = () => {
@@ -36,7 +37,7 @@ const Directory = () => {
                 </Flex>
             </MenuButton>
             <MenuList>
-                {/* here */}
+                <Communities/>
             </MenuList>
         </Menu>
 	);
