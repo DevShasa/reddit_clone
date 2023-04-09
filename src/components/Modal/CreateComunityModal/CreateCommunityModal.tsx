@@ -19,6 +19,10 @@ import {
 import { useState } from "react"
 import {BsFillPersonFill, BsFillEyeFill} from "react-icons/bs"
 import { HiLockClosed } from "react-icons/hi"
+import { doc, getDoc, runTransaction, serverTimestamp, setDoc } from "firebase/firestore"
+import { firestore, auth } from "@/firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Transaction } from "@google-cloud/firestore";
 
 type Props = {
 	open: boolean;
@@ -26,12 +30,15 @@ type Props = {
 };
 
 const CreateCommunityModal = (props: Props) => {
+
+  const [user] = useAuthState(auth)
 	const { open, handleClose } = props;
   const [ name, setName ] = useState("")
   const [charsRemaining, setCharsRemaining] = useState(21)
-  const [ nameError, setNameError ] = useState("")
+  const [ error, setError ] = useState("")
   const [ communityType, setCommunityType ] = useState("public")
   const [ loading, setLoading ] = useState(false)
+
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
     // Do nothing if whatever is in the input is greater than 21
@@ -47,8 +54,58 @@ const CreateCommunityModal = (props: Props) => {
     setCommunityType(name)
   }
 
-  const handleCreateCommunity = ()=>{
+  const handleCreateCommunity = async()=>{
+    // begin by resetting errors
+    if(error) setError("")
+    
+    // regex will return true if text contains special characters, empty spaces and other unwanteds
+    const comunityNameRegex = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if(comunityNameRegex.test(name) || name.length < 3){
+      // name does not meet standards
+      return setError("Names must be 3 to 21 characters, and can only have letters, numbers and underscores")
+    }
 
+    //name meets all the parameters
+    setLoading(true);
+    try {
+      // create the community document and the community snipped subcollection for user
+      // also check that name is not taken
+      const communityDocRef = doc(firestore, "communities", name)
+
+      await runTransaction(firestore, async (transaction)=>{
+          //check if the community exists
+          const communityDoc = await transaction.get(communityDocRef)
+          if(communityDoc.exists()){
+            throw new Error(`Sorry r/${name} is already taken, Try another`)
+          }
+
+          // create community
+          transaction.set(communityDocRef, {
+            creatorId: user?.uid,
+            createAt: serverTimestamp(),
+            numberOfMembers: 1,
+            privacyType: communityType
+          })
+
+          // create community snippet for user by writing a new subdocument in  user object
+          transaction.set(
+            doc(firestore, `users/${user?.uid}/communitySnippets`, name),
+            {
+              communityId: name,
+              isModerator: true
+            }
+          )
+      })
+
+      setLoading(false)
+    } catch (error: any) {
+      setError(error.message)
+      console.log("FIREBASE ERROR WHEN CREATING DOCUMENT", error)
+      setLoading(false)
+    }
+
+
+    setLoading(false)
   }
 
 	return (
@@ -96,7 +153,7 @@ const CreateCommunityModal = (props: Props) => {
               {charsRemaining} characters remaining
             </Text>
             <Text fontSize="9pt" color="red" pt={1}>
-              {nameError}
+              {error}
             </Text>
             <Box marginBlock={4}>
                 <Text fontWeight={600} fontSize={15}>Community Type</Text>
