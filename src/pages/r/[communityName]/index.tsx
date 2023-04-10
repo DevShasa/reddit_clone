@@ -6,6 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import safeJsonStringify from "safe-json-stringify";
 import { Community } from '@/atoms/communitiesAtom'; 
 import CommunityNotFound from '@/components/Community/CommunityNotFound';
+import Header from '@/components/Community/Header';
 
 
 type CommunityPageProps = {
@@ -20,9 +21,9 @@ const CommunityPage:NextPage<CommunityPageProps> = (props)=> {
     }
 
     return ( 
-        <div>
-            welcome to {communityData?.id}
-        </div>
+        <>
+            <Header communityData={communityData}/>
+        </>
     )
 }
 
