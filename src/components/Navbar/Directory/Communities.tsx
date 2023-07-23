@@ -9,7 +9,7 @@ const Communities = (props: Props) => {
     const [open, setOpen] = useState(false)
     return (
         <>
-            {/* the moddal */}
+            {/* the modal */}
             <CreateCommunityModal open={open} handleClose={()=>setOpen(false)}/>
             <MenuItem 
                 width="100%"

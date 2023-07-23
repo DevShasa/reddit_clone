@@ -49,7 +49,8 @@ const CreateCommunityModal = (props: Props) => {
   }
 
   const onCommunityTypeChange =(e: React.ChangeEvent<HTMLInputElement>)=>{
-    const {target:{name}} = e
+    //const {target:{name}} = e
+    const name = e.target.name // less confusing
     if(name === communityType) return
     setCommunityType(name)
   }

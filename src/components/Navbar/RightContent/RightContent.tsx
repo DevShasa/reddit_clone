@@ -17,8 +17,11 @@ const RightContent = ({user}: Props) => {
 		<>
 			<AuthModal />
 			<Flex justify="center" alignItems="center"  >
-				{ user ? <Icons /> : <AuthButtons /> }
-				<UserMenu user={user}/>
+				{ user 
+					? <Icons /> // Icons does not do anything yet they just mimic the look and feel of reddit
+					: <AuthButtons /> // buttons that toggle the login auth modal 
+				}
+				 <UserMenu user={user}/> {/*displays different states based on whether user is logged in  */}
 			</Flex>
 			
 		</>
