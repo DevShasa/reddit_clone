@@ -98,7 +98,10 @@ const CreateCommunityModal = (props: Props) => {
           )
       })
 
+
+
       setLoading(false)
+      handleClose()
     } catch (error: any) {
       setError(error.message)
       console.log("FIREBASE ERROR WHEN CREATING DOCUMENT", error)
@@ -139,12 +142,12 @@ const CreateCommunityModal = (props: Props) => {
               r/
             </Text>
             <Input 
-              position="relative"
               name="name"
               onChange = {handleChange}
               pl="22px" // to account for the relatively positioned text haha hack
               type={""}
               size="sm"
+              //border="1px solid red"
             />
             <Text
               fontSize="9pt"

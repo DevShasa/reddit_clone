@@ -5,9 +5,8 @@ import { useRecoilValue } from "recoil";
 import Login from "./Login";
 import Signup from "./Signup";
 
-type Props = {};
 
-const AuthInputs = (props: Props) => {
+const AuthInputs = () => {
 
     const {view} = useRecoilValue(authModalStateAtom)
     
